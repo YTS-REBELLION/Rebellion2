@@ -1,0 +1,20 @@
+/.vs
+/simplegame/x64
+*.exe
+*.ilk
+*.pbd
+*.obj
+*.pch
+*.log
+*.idb
+*.tlog
+*.lastbuildstate
+*.suo
+*.db
+*.pdb
+*.ipch
+*.res
+*.user
+RebellionServer/Server/.vs/Server/v17/Browse.VC.opendb
+03. External/Library/Engine/Engine_debug.idb
+03. External/Library/Engine/Engine_debug.lib
