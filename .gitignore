@@ -18,3 +18,16 @@
 RebellionServer/Server/.vs/Server/v17/Browse.VC.opendb
 03. External/Library/Engine/Engine_debug.idb
 03. External/Library/Engine/Engine_debug.lib
+*.log
+*.log
+*.recipe
+*.iobj
+*.ipdb
+*.pch
+*.tlog
+01. Project/Client/x64/Release/Client.tlog/Client.lastbuildstate
+*.obj
+03. External/Library/FBXLoader/x64/debug/libfbxsdk-md.lib
+03. External/Library/FBXLoader/x64/release/libfbxsdk-md.lib
+RebellionServer/Server/.vs/Server/FileContentIndex/156faff2-c2e7-4f56-9550-c6bd7795945d.vsidx
+RebellionServer/Server/.vs/Server/FileContentIndex/read.lock
