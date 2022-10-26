@@ -29,6 +29,7 @@
 
 #include "PlayerScript.h"
 #include "MonsterScript.h"
+#include "MonsterScript2.h"
 #include "SwordScript.h"
 #include "ToolCamScript.h"
 #include "Fire.h"
@@ -420,40 +421,47 @@ void CAssemblyAreaScene::init()
 	FindLayer(L"UI")->AddGameObject(pUICam);
 
 
-	// ===================
-	// NPC 로드
-	// ===================
+	//// ===================
+	//// NPC 로드
+	//// ===================
 
-	//Ptr<CMeshData> pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Idle.mdat", L"MeshData\\King_Idle.mdat");
+	//Ptr<CMeshData> pAS_NPCMeshData = CResMgr::GetInst()->LoadFBX(L"FBX\\Monster\\Monster_M\\Monster_M_Idle.fbx");
+	//pAS_NPCMeshData->Save(pAS_NPCMeshData->GetPath());
+	////Ptr<CMeshData> pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Idle.mdat", L"MeshData\\King_Idle.mdat");
 
 	//CGameObject* pAS_NPC = new CGameObject;
 
 	//pAS_NPC = pAS_NPCMeshData->Instantiate();
-	//pAS_NPC->SetName(L"AS_NPC_1");
+	//pAS_NPC->SetName(L"M_Monster");
 	//pAS_NPC->FrustumCheck(false);
 
 	//pAS_NPC->Transform()->SetLocalPos(Vec3(300.f, 0.f, 500.f));
-	//pAS_NPC->Transform()->SetLocalScale(Vec3(1.5f, 1.5f, 1.5f));
-	//pAS_NPC->Transform()->SetLocalRot(Vec3(0.f, 0.f, 0.f));
+	//pAS_NPC->Transform()->SetLocalScale(Vec3(5.f, 5.f, 5.f));
+	//pAS_NPC->Transform()->SetLocalRot(Vec3(0.f, 0.f, XMConvertToRadians(-90.f)));
 	//pAS_NPC->AddComponent(new CCollider2D);
 	//pAS_NPC->Collider2D()->SetColliderType(COLLIDER2D_TYPE::SPHERE);
 	//pAS_NPC->Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
 	//pAS_NPC->Collider2D()->SetOffsetScale(Vec3(10.f, 10.f, 10.f));
-	//pAS_NPC->Collider2D()->SetOffsetRot(Vec3(XMConvertToRadians(90.f), 0.f, 0.f));
-	////pAS_NPC->MeshRender()->SetDynamicShadow(true);
+	//pAS_NPC->Collider2D()->SetOffsetRot(Vec3(0.f, 0.f, 0.f));
+	//////pAS_NPC->MeshRender()->SetDynamicShadow(true);
 
-	//pAS_NPC->AddComponent(new CBossScript);
-	//CBossScript* BossScript = pAS_NPC->GetScript<CBossScript>();
-	//pAS_NPC->GetScript<CBossScript>()->init();
+	//pAS_NPC->AddComponent(new CMonsterScript2);
+	//CMonsterScript2* MonsterScript2 = pAS_NPC->GetScript<CMonsterScript2>();
+	//pAS_NPC->GetScript<CMonsterScript2>()->init();
 
-	////// 보스 애니메이션
-	//pAS_NPC->GetScript<CBossScript>()->SetBossAnimationData(pAS_NPCMeshData->GetMesh(), 0, 0, 55);
+	//// 남자 몬스터 애니메이션
+	//pAS_NPC->GetScript<CMonsterScript2>()->SetMonsterAnimationData(pAS_NPCMeshData->GetMesh(), 0, 0, 57);
 
-	//pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Attack.mdat", L"MeshData\\King_Attack.mdat");
-	//pAS_NPC->GetScript<CBossScript>()->SetBossAnimationData(pAS_NPCMeshData->GetMesh(), 1, 0, 68);
+	//pAS_NPCMeshData = CResMgr::GetInst()->LoadFBX(L"FBX\\Monster\\Monster_M\\Monster_M_Run.fbx");
+	//pAS_NPCMeshData->Save(pAS_NPCMeshData->GetPath());
+	////pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Attack.mdat", L"MeshData\\King_Attack.mdat");
+	//pAS_NPC->GetScript<CMonsterScript2>()->SetMonsterAnimationData(pAS_NPCMeshData->GetMesh(), 1, 0, 24);
 
-	////pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Die.mdat", L"MeshData\\King_Die.mdat");
-	////pAS_NPC->GetScript<CBossScript>()->SetBossAnimationData(pAS_NPCMeshData->GetMesh(), 2, 0, 78);
+	//pAS_NPCMeshData = CResMgr::GetInst()->LoadFBX(L"FBX\\Monster\\Monster_M\\Monster_M_Attack.fbx");
+	//pAS_NPCMeshData->Save(pAS_NPCMeshData->GetPath());
+	////pAS_NPCMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\King_Attack.mdat", L"MeshData\\King_Attack.mdat");
+	//pAS_NPC->GetScript<CMonsterScript2>()->SetMonsterAnimationData(pAS_NPCMeshData->GetMesh(), 2, 0, 95);
+
 
 	//FindLayer(L"NPC")->AddGameObject(pAS_NPC);
 
@@ -464,10 +472,10 @@ void CAssemblyAreaScene::init()
 	//pbSword = pbSwordMeshData->Instantiate();
 	//pbSword->SetName(L"King_Sword");
 	//pbSword->FrustumCheck(false);
-	//pbSword->Transform()->SetLocalScale(Vec3(1.7f, 1.7f, 1.7f));
+	//pbSword->Transform()->SetLocalScale(Vec3(0.35f, 0.35f, 0.35f));
 
 	//pbSword->AddComponent(new CSwordScript);
-	//pbSword->GetScript<CSwordScript>()->init(PERSON_OBJ_TYPE::BOSS, pAS_NPC, 25);
+	//pbSword->GetScript<CSwordScript>()->init(PERSON_OBJ_TYPE::M_MONSTER, pAS_NPC, 19);
 	//pAS_NPC->AddChild(pbSword);
 
 	/*Ptr<CMeshData> pTestMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\Monster_Lv1_Idle.mdat", L"MeshData\\Monster_Lv1_Idle.mdat");

@@ -670,45 +670,25 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   
-  Dungeon.cpp
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\MonsterScript.h(73,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\M_MonsterScript.h(97,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\ResMgr.h(137,1): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\PlayerScript.h(108): message : 컴파일되는 함수 템플릿 인스턴스화 'Ptr<CTexture> CResMgr::Load<CTexture>(const std::wstring &,const std::wstring &)'에 대한 참조를 확인하세요.
-  Network.cpp
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Animator3D.h(45,78): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Animator3D.cpp
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(45,78): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
               _Ty=float
           ]
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Animator3D.h(47,100): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(47,100): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
               _Ty=float
           ]
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\MonsterScript.h(73,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\M_MonsterScript.h(97,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Boss.h(73,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Network.cpp(96,2): warning C4002: 함수 같은 매크로 호출 'RtlZeroMemory'에 대해 인수가 너무 많습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\ResMgr.h(137,1): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Network.cpp(204): message : 컴파일되는 함수 템플릿 인스턴스화 'Ptr<CMeshData> CResMgr::Load<CMeshData>(const std::wstring &,const std::wstring &)'에 대한 참조를 확인하세요.
-  PlayerScript.cpp
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Animator3D.h(45,78): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.cpp(41,48): warning C4244: '+=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
               _Ty=float
           ]
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Animator3D.h(47,100): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.cpp(45,47): warning C4244: '+=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
               _Ty=float
           ]
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\MonsterScript.h(73,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Swing2.h(30,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Swing3.h(28,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Swing4.h(29,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\ResMgr.h(137,1): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\PlayerScript.h(108): message : 컴파일되는 함수 템플릿 인스턴스화 'Ptr<CTexture> CResMgr::Load<CTexture>(const std::wstring &,const std::wstring &)'에 대한 참조를 확인하세요.
-  코드를 생성하고 있습니다...
-C:\Users\pig75\OneDrive\Desktop\Rebellion\01. Project\Engine\Network.cpp(38): warning C4715: 'CheckType': 모든 제어 경로에서 값을 반환하지는 않습니다.
-  Engine.vcxproj -> C:\Users\pig75\OneDrive\Desktop\Rebellion\03. External\Library\Engine\Engine.lib
+  Engine.vcxproj -> C:\Users\gxg11\Desktop\GP\Rebellion2\03. External\Library\Engine\Engine.lib

@@ -52,6 +52,10 @@ void CAnimator3D::finalupdate()
 	{
 		m_vecClipUpdateTime[m_iCurClip] += Double_DT;
 	}
+	else if ((m_iCurClip == 1) && GetObj()->GetName() == L"King")
+	{
+		m_vecClipUpdateTime[m_iCurClip] += Double_DT * 1.3f;
+	}
 	else {
 		m_vecClipUpdateTime[m_iCurClip] += DT;
 	}

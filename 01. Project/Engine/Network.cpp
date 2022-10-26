@@ -16,10 +16,12 @@
 #include "SwordScript.h"
 #include "ToolCamScript.h"
 #include "MonsterScript.h"
+#include "MonsterScript2.h"
 #include "M_MonsterScript.h"
 
 #include "PlayerColScript.h"
 #include "MonsterColScript.h"
+#include "Monster2ColScript.h"
 #include "BossColScript.h"
 
 #include "SwordAttackAreaScript.h"
@@ -31,7 +33,15 @@
 OBJECT_TYPE CheckType(const short& id)
 {
 	if (id >= 0 && id < MAX_USER) return OBJECT_TYPE::PLAYER;
-	else if (id > NPC_ID_START-1 && NPC_ID_START + 40 > id) return OBJECT_TYPE::FM_MONSTER;
+	else if (id > NPC_ID_START - 1 && NPC_ID_START + 40 > id)
+	{
+		for (int i = NPC_ID_START - 1; i < NPC_ID_START + 40; i++)
+		{
+			if (id % 2 == 0) return OBJECT_TYPE::FM_MONSTER;
+			else return OBJECT_TYPE::M_MONSTER;
+
+		}
+	}
 	else if (id == 141) return OBJECT_TYPE::BOSS;
 
 	//else if (id >= NPC_ID_START + 41 && NPC_ID_START + 50) return OBJECT_TYPE::M_MONSTER;
@@ -375,6 +385,75 @@ void CNetwork::ProcessPacket(char* ptr)
 
 				CSceneMgr::GetInst()->GetCurScene()->AddGameObject(L"MonsterCollider", pMonsterCol, false);
 			}
+
+			else if (CheckType(id) == OBJECT_TYPE::M_MONSTER) {
+			//// 몬스터
+			CGameObject* pMonster = new CGameObject;
+			Ptr<CMeshData> pMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\Monster_M_Idle.mdat", L"MeshData\\Monster_M_Idle.mdat");
+			GameObject.emplace(id, pMonster);
+
+			GameObject.find(id)->second->SetID(id);
+			GameObject.find(id)->second = pMeshData->Instantiate();
+			GameObject.find(id)->second->SetName(L"M_Monster");
+			GameObject.find(id)->second->FrustumCheck(false);
+
+			GameObject.find(id)->second->Transform()->SetLocalPos(Vec3(packet->x, packet->y, packet->z));
+			GameObject.find(id)->second->Transform()->SetLocalScale(Vec3(2.5f, 2.5f, 2.5f));
+			GameObject.find(id)->second->Transform()->SetLocalRot(Vec3(0.f, 0.f, XMConvertToRadians(-90.f)));
+
+			// 몬스터 스크립트 붙여주기.
+			GameObject.find(id)->second->AddComponent(new CMonsterScript2);
+
+			CMonsterScript2* MonsterScript = GameObject.find(id)->second->GetScript<CMonsterScript2>();
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->init();
+
+			//몬스터 애니메이션
+			MonsterScript->SetMonsterAnimationData(pMeshData->GetMesh(), 0, 0, 57);
+
+			pMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\Monster_M_Run.mdat", L"MeshData\\Monster_M_Run.mdat");
+			MonsterScript->SetMonsterAnimationData(pMeshData->GetMesh(), 1, 0, 24);
+
+			pMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\Monster_M_Attack.mdat", L"MeshData\\Monster_M_Attack.mdat");
+			MonsterScript->SetMonsterAnimationData(pMeshData->GetMesh(), 2, 0, 95);
+
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->SetID(id);
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->SetLerpPos(Vec3(packet->x, packet->y, packet->z));
+			GameObject.find(id)->second->MeshRender()->SetDynamicShadow(true);
+			CSceneMgr::GetInst()->GetCurScene()->AddGameObject(L"Monster", GameObject.find(id)->second, false);
+
+			CGameObject* pSword = new CGameObject;
+
+			Ptr<CMeshData>pSwordMeshData = CResMgr::GetInst()->Load<CMeshData>(L"MeshData\\Monster_FM_Weapon.mdat", L"MeshData\\Monster_FM_Weapon.mdat");
+
+			pSword = pSwordMeshData->Instantiate();
+			pSword->SetName(L"M_Monster_Sword");
+			pSword->FrustumCheck(false);
+			pSword->Transform()->SetLocalScale(Vec3(0.35f, 0.35f, 0.35f));
+
+			pSword->AddComponent(new CSwordScript);
+			pSword->GetScript<CSwordScript>()->init(PERSON_OBJ_TYPE::M_MONSTER, GameObject.find(id)->second, 19);
+			GameObject.find(id)->second->AddChild(pSword);
+
+			CGameObject* pMonsterCol = new CGameObject;
+			pMonsterCol->SetName(L"MonsterCol2");
+			pMonsterCol->AddComponent(new CCollider2D);
+			pMonsterCol->AddComponent(new CTransform);
+			pMonsterCol->AddComponent(new CMeshRender);
+			pMonsterCol->Transform()->SetLocalPos(GameObject.find(id)->second->Transform()->GetLocalPos());
+			pMonsterCol->Transform()->SetLocalScale(Vec3(1.f, 1.f, 1.f));
+			pMonsterCol->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
+			pMonsterCol->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
+
+			pMonsterCol->Collider2D()->SetColliderType(COLLIDER2D_TYPE::SPHERE);
+			pMonsterCol->Collider2D()->SetOffsetScale(Vec3(35.f, 35.f, 35.f));
+			pMonsterCol->Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
+			pMonsterCol->AddComponent(new CMonster2ColScript);
+			pMonsterCol->GetScript<CMonster2ColScript>()->SetMonster(GameObject.find(id)->second);
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->SetColMonster(pMonsterCol);
+
+			CSceneMgr::GetInst()->GetCurScene()->AddGameObject(L"MonsterCollider", pMonsterCol, false);
+			}
+
 			else if (CheckType(id) == OBJECT_TYPE::BOSS) {
 
 				//// 몬스터
@@ -557,8 +636,29 @@ void CNetwork::ProcessPacket(char* ptr)
 
 		}
 		else if (CheckType(id) == OBJECT_TYPE::M_MONSTER) {
-			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->GetColMonster()->SetDead();
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->GetColSSA()->SetDead();
+			GameObject.find(id)->second->GetScript<CMonsterScript2>()->GetObj()->SetDead();
 			GameObject.erase(id);
+
+			if (g_myid == pid) {
+				switch (GameObject.find(pid)->second->GetScript<CPlayerScript>()->GetQuestCnt()) {
+				case QUEST::SECOND:
+				{
+					GameObject.find(pid)->second->GetScript<CPlayerScript>()->QuestExplane(QUEST::SECOND, packet->monsterdieCnt);
+					break;
+				}
+				}
+			}
+			else {
+				switch (GameObject.find(pid)->second->GetScript<CPlayerScript>()->GetQuestCnt()) {
+				case QUEST::SECOND:
+				{
+					GameObject.find(pid)->second->GetScript<CPlayerScript>()->QuestExplane(QUEST::SECOND, packet->monsterdieCnt);
+					break;
+				}
+				}
+			}
 		}
 		else if (CheckType(id) == OBJECT_TYPE::BOSS) {
 			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
@@ -603,11 +703,12 @@ void CNetwork::ProcessPacket(char* ptr)
 				GameObject.find(other_id)->second->GetScript<CMonsterScript>()->SetMove(packet->status);
 			}
 
-			/*else if (CheckType(other_id) == OBJECT_TYPE::M_MONSTER)
+			else if (CheckType(other_id) == OBJECT_TYPE::M_MONSTER)
 			{
-				GameObject.find(other_id)->second->GetScript<CM_MonsterScript>()->SetLerpPos(packet->localPos);
-				GameObject.find(other_id)->second->GetScript<CM_MonsterScript>()->SetMove(packet->status);
-			}*/
+				GameObject.find(other_id)->second->GetScript<CMonsterScript2>()->SetLerpPos(packet->localPos);
+				GameObject.find(other_id)->second->GetScript<CMonsterScript2>()->SetMove(packet->status);
+			}
+
 			else if (CheckType(other_id) == OBJECT_TYPE::BOSS)
 			{
 				GameObject.find(other_id)->second->GetScript<CM_MonsterScript>()->SetLerpPos(packet->localPos);
@@ -685,30 +786,43 @@ void CNetwork::ProcessPacket(char* ptr)
 
 		//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetDirChange(false);
 		if (packet->isAttack) {
-			if (monsterId == 141)
+			if (CheckType(monsterId)== OBJECT_TYPE::BOSS)
 			{
 				GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->SetMove(false);
 				GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->SetAttack(true);
 				GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->AnimationPlay(Boss_ANI_TYPE::ATTACK);
 			}
-			else {
+			else if (CheckType(monsterId) == OBJECT_TYPE::FM_MONSTER) {
 				GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetMove(false);
 				GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetAttack(true);
 				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->GetColSSA()->SetActive(true);
 				GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->AnimationPlay(monsterId, MONSTER_ANI_TYPE::ATTACK);
 			}
+			else if (CheckType(monsterId) == OBJECT_TYPE::M_MONSTER) {
+				GameObject.find(monsterId)->second->GetScript<CMonsterScript2>()->SetMove(false);
+				GameObject.find(monsterId)->second->GetScript<CMonsterScript2>()->SetAttack(true);
+				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->GetColSSA()->SetActive(true);
+				GameObject.find(monsterId)->second->GetScript<CMonsterScript2>()->AnimationPlay(monsterId, MONSTER_ANI_TYPE::ATTACK);
+			}
 		}
 		else
 		{
-			if (monsterId == 141)
+			if (CheckType(monsterId) == OBJECT_TYPE::BOSS)
 			{
 				//GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->SetMove(false);
 				//GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->SetAttack(true);
 				//GameObject.find(monsterId)->second->GetScript<CM_MonsterScript>()->AnimationPlay(MONSTER_ANI_TYPE::ATTACK);
 			}
-			else {
+			else if (CheckType(monsterId) == OBJECT_TYPE::FM_MONSTER) {
 				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetMove(false);
 				GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetAttack(false);
+				GameObject.find(monsterId)->second->Animator3D()->SetClipTime(3, 0.f);
+				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->GetColSSA()->SetActive(true);
+				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->AnimationPlay(monsterId, MONSTER_ANI_TYPE::ATTACK);
+			}
+			else if (CheckType(monsterId) == OBJECT_TYPE::M_MONSTER) {
+				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->SetMove(false);
+				GameObject.find(monsterId)->second->GetScript<CMonsterScript2>()->SetAttack(false);
 				GameObject.find(monsterId)->second->Animator3D()->SetClipTime(3, 0.f);
 				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->GetColSSA()->SetActive(true);
 				//GameObject.find(monsterId)->second->GetScript<CMonsterScript>()->AnimationPlay(monsterId, MONSTER_ANI_TYPE::ATTACK);
@@ -719,7 +833,7 @@ void CNetwork::ProcessPacket(char* ptr)
 	case SC_PACKET_TARGET: {
 		sc_packet_targetplayer* packet = reinterpret_cast<sc_packet_targetplayer*>(ptr);
 		// packet -> int targetId, bool isTarget
-		if (packet->monster_id == 141)
+		if (CheckType(packet->monster_id) == OBJECT_TYPE::BOSS)
 		{
 			GameObject.find(packet->monster_id)->second->GetScript<CM_MonsterScript>()->SetTarget(packet->isTarget);
 			GameObject.find(packet->monster_id)->second->GetScript<CM_MonsterScript>()->SetTargetID(packet->id);
@@ -728,9 +842,13 @@ void CNetwork::ProcessPacket(char* ptr)
 			//	GameObject.find(packet->monster_id)->second->GetScript<CM_MonsterScript>()->SetTargetID(packet->id);
 			//}
 		}
-		else {
+		else if (CheckType(packet->monster_id) == OBJECT_TYPE::FM_MONSTER) {
 			GameObject.find(packet->monster_id)->second->GetScript<CMonsterScript>()->SetTarget(packet->isTarget);
 			GameObject.find(packet->monster_id)->second->GetScript<CMonsterScript>()->SetTargetID(packet->id);
+		}
+		else if (CheckType(packet->monster_id) == OBJECT_TYPE::M_MONSTER) {
+			GameObject.find(packet->monster_id)->second->GetScript<CMonsterScript2>()->SetTarget(packet->isTarget);
+			GameObject.find(packet->monster_id)->second->GetScript<CMonsterScript2>()->SetTargetID(packet->id);
 		}
 
 		break;

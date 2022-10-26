@@ -144,7 +144,7 @@ void CServerFrame::InitClients()
 			z = 300.f;
 			break;
 		}
-		Vec3 pos;-+9
+		Vec3 pos;
 		pos.x = x;//x;
 		pos.y = 0.f;
 		pos.z = z;// z;

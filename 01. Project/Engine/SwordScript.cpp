@@ -45,7 +45,7 @@ void CSwordScript::Set_Sword_To_Fbx()
 	case PERSON_OBJ_TYPE::WIZARD_PLAYER:
 		break;
 	case PERSON_OBJ_TYPE::M_MONSTER:
-		vRot = Vec3(0.f, 0.f, XMConvertToRadians(90.f));
+		vRot = Vec3(0.f, 0.f, XMConvertToRadians(220.f));
 		break;
 	case PERSON_OBJ_TYPE::FM_MONSTER:
 		vRot = Vec3(0.f, 0.f, XMConvertToRadians(45.f));

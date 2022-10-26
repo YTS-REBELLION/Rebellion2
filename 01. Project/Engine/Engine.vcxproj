@@ -225,8 +225,10 @@ call EngineCopy.bat</Command>
     <ClInclude Include="MeshRender.h" />
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="Miro.h" />
+    <ClInclude Include="Monster2ColScript.h" />
     <ClInclude Include="MonsterColScript.h" />
     <ClInclude Include="MonsterScript.h" />
+    <ClInclude Include="MonsterScript2.h" />
     <ClInclude Include="MRT.h" />
     <ClInclude Include="M_MonsterScript.h" />
     <ClInclude Include="Network.h" />
@@ -332,8 +334,10 @@ call EngineCopy.bat</Command>
     <ClCompile Include="MeshRender.cpp" />
     <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="Miro.cpp" />
+    <ClCompile Include="Monster2ColScript.cpp" />
     <ClCompile Include="MonsterColScript.cpp" />
     <ClCompile Include="MonsterScript.cpp" />
+    <ClCompile Include="MonsterScript2.cpp" />
     <ClCompile Include="MRT.cpp" />
     <ClCompile Include="M_MonsterScript.cpp" />
     <ClCompile Include="Network.cpp" />
