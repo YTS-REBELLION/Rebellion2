@@ -56,7 +56,7 @@ CNetwork g_net;
 //const char* SERVER_IP = "172.30.1.54";
 //const char* SERVER_IP = "192.168.0.36";
 //const char* SERVER_IP = "10.30.2.22";
-const char* SERVER_IP = "127.0.0.1";
+const char* SERVER_IP = "14.51.115.27";
 
 OBJ GameObject;
 
@@ -1104,13 +1104,14 @@ void CNetwork::Send_LogIn_Packet()
 
 	char name[MAX_ID_LEN] = "Tester";
 	string namestring;
-
+	int password = 0;
 	//cout << name << endl;
 	//strcpy_s(name, packet.name);
 
 	std::cout << "name : ";
 	std::cin >> name;
-
+	std::cout << "password : ";
+	std::cin >> password;
 	sprintf_s(packet.name, name);
 	strcpy_s(name, packet.name);
 	g_myid++;
