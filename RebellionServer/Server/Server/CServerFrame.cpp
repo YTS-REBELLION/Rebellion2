@@ -950,17 +950,14 @@ void CServerFrame::AggroMove(int npc_id)
 				_objects[i].ClientUnLock();
 				if (_objects[npc_id]._closed == false) {					// 사거리에 들어오지 않음 
 					_objects[npc_id]._move = true;
+					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(), true);
 
-					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(),
-						_objects[npc_id].GetLook().x, _objects[npc_id].GetLook().y, _objects[npc_id].GetLook().z, true // true
-						,std::chrono::system_clock::now());
 				}
 				else {
 					_objects[npc_id]._move = false;
+					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(), false);
 
-					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(),
-						_objects[npc_id].GetLook().x, _objects[npc_id].GetLook().y, _objects[npc_id].GetLook().z, false // false
-						,std::chrono::system_clock::now());
+
 				}
 			}
 			else {
@@ -1091,9 +1088,10 @@ void CServerFrame::Do_move(const short& id, const char& dir, Vec3& localPos, con
 			}
 			else {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),true);
+
+
+			
 			}
 		}
 		else {							// Object가 계속 시야에 존재하고 있을 떄.
@@ -1101,9 +1099,8 @@ void CServerFrame::Do_move(const short& id, const char& dir, Vec3& localPos, con
 			_objects[np].ClientLock();
 			if (0 != _objects[np].GetViewListCount(id)) {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(), true);
+
 			}
 			else {
 				_objects[np].ClientUnLock();
@@ -1214,9 +1211,8 @@ void CServerFrame::Do_move_Dungeon(const short& id, const char& dir, Vec3& local
 			}
 			else {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(), true);
+
 			}
 		}
 		else {							// Object가 계속 시야에 존재하고 있을 떄.
@@ -1224,9 +1220,8 @@ void CServerFrame::Do_move_Dungeon(const short& id, const char& dir, Vec3& local
 			_objects[np].ClientLock();
 			if (0 != _objects[np].DungeonGetViewListCount(id)) {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(), true);
+
 			}
 			else {
 				_objects[np].ClientUnLock();
@@ -1307,9 +1302,8 @@ void CServerFrame::Do_move_BossMap(const short& id, const char& dir, Vec3& local
 			}
 			else {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(), true);
+
 			}
 		}
 		else {							// Object가 계속 시야에 존재하고 있을 떄.
@@ -1317,9 +1311,8 @@ void CServerFrame::Do_move_BossMap(const short& id, const char& dir, Vec3& local
 			_objects[np].ClientLock();
 			if (0 != _objects[np].BossMapGetViewListCount(id)) {
 				_objects[np].ClientUnLock();
-				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(),
-					_objects[id].GetLook().x, _objects[id].GetLook().y, _objects[id].GetLook().z, true,
-					std::chrono::system_clock::now());
+				_sender->SendMovePacket(_objects[np].GetSocket(), id, _objects[id].GetPos(), true);
+
 			}
 			else {
 				_objects[np].ClientUnLock();
@@ -1468,16 +1461,15 @@ void CServerFrame::BossMove(int npc_id)
 				if (_objects[npc_id]._closed == false) {					// 사거리에 들어오지 않음 
 					_objects[npc_id]._move = true;
 
-					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(),
-						_objects[npc_id].GetLook().x, _objects[npc_id].GetLook().y, _objects[npc_id].GetLook().z, true // true
-						, std::chrono::system_clock::now());
+
+					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(), true);
+
+
 				}
 				else {
 					_objects[npc_id]._move = false;
+					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(), false);
 
-					_sender->SendMovePacket(_objects[i].GetSocket(), npc_id, _objects[npc_id].GetPos(),
-						_objects[npc_id].GetLook().x, _objects[npc_id].GetLook().y, _objects[npc_id].GetLook().z, false // false
-						, std::chrono::system_clock::now());
 				}
 			}
 			else {

@@ -802,7 +802,7 @@ void CNetwork::ProcessPacket(char* ptr)
 
 		GameObject.find(p->id)->second->GetScript<CPlayerScript>()->SetMain();
 
-		GameObject.find(g_myid)->second->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
+		//GameObject.find(g_myid)->second->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
 		GameObject.find(g_myid)->second->GetScript<CPlayerScript>()->SetQuestStart(true);
 
 		break;
@@ -986,13 +986,14 @@ void CNetwork::Send_LogIn_Packet()
 
 	char name[MAX_ID_LEN] = "Tester";
 	string namestring;
-
+	int password = 0;
 	//cout << name << endl;
 	//strcpy_s(name, packet.name);
 
-	std::cout << "name : ";
+	std::cout << "Id : ";
 	std::cin >> name;
-
+	std::cout << "Password : ";
+	std::cin >> password;
 	sprintf_s(packet.name, name);
 	strcpy_s(name, packet.name);
 	g_myid++;

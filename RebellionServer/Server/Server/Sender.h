@@ -15,6 +15,7 @@ public:
 	void SendLeaveObjectPacket(SOCKET s, int playerId);
 	void SendNPCAttackPacket(SOCKET s, int id, float x, float z,bool isAttack);
 	void SendMovePacket(SOCKET s, int mover, Vec3 localPos, float dx, float dy, float dz, bool status, std::chrono::time_point<std::chrono::system_clock> time);
+	void SendMovePacket(SOCKET s, int mover, Vec3 localPos, bool status);
 	void SendMovePacket(SOCKET s, int mover, Vec3 localPos);
 
 	void SendPutObjectPacket(SOCKET s, int id, float x, float y, float z, int objType);

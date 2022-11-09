@@ -168,10 +168,7 @@ struct sc_packet_move {
 	//float x, y, z;
 	Vec3 localPos;
 	
-	float D_x, D_y, D_z;
 	bool status;
-	std::chrono::time_point<std::chrono::system_clock> time;
-	
 	bool isMoving;
 };
 

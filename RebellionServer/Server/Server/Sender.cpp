@@ -87,29 +87,16 @@ void CSender::SendNPCAttackPacket(SOCKET s, int id, float x, float z,bool isAtta
 	SendPacket(s, &packet);
 }
 
-void CSender::SendMovePacket(SOCKET s, int mover,Vec3 localPos, float dx, float dy, float dz, bool status, std::chrono::time_point<std::chrono::system_clock> time)
+
+void CSender::SendMovePacket(SOCKET s,int mover, Vec3 localPos,bool status)
 {
 	sc_packet_move packet;
 	packet.id = mover;
 	packet.localPos = localPos;
-
-	packet.D_x = dx;
-	packet.D_y = dy;
-	packet.D_z = dz;
-	packet.time = time;
 	packet.size = sizeof(packet);
+	packet.type = SC_PACKET_MOVE;
 	packet.status = status;
-	packet.type = SC_PACKET_MOVE;
-	SendPacket(s, &packet);
-}
-
-void CSender::SendMovePacket(SOCKET s,int mover, Vec3 localPos)
-{
-	sc_packet_move packet;
-	packet.id = mover;
-	packet.localPos = localPos;
-	packet.size = sizeof(packet);
-	packet.type = SC_PACKET_MOVE;
+	
 	SendPacket(s, &packet);
 
 
@@ -151,10 +138,6 @@ void CSender::SendPlayerDiePacket(SOCKET s, int id)
 	SendPacket(s, &packet);
 }
 
-void CSender::SendNPCDiePacket(SOCKET s, int id, int type)
-{
-}
-
 
 void CSender::SendPlayerAttackPacket(SOCKET s, int attacker, bool isAttack)
 {
@@ -163,28 +146,6 @@ void CSender::SendPlayerAttackPacket(SOCKET s, int attacker, bool isAttack)
 	packet.size = sizeof(packet);
 	packet.type = SC_PACKET_PLAYER_ATTACK;
 	packet.isAttack = isAttack;
-
-	SendPacket(s, &packet);
-}
-
-
-void CSender::SendHpPacket(SOCKET s, short currentHp)
-{
-	sc_packet_hp packet;
-	packet.type = SC_PACKET_HP_CHANGE;
-	packet.size = sizeof(packet);
-	packet.c_hp = currentHp;
-
-	SendPacket(s, &packet);
-}
-
-void CSender::SendDefencePacket(SOCKET s, int id, bool kind)
-{
-	sc_packet_defence packet;
-	packet.type = SC_PACKET_DEFENCE;
-	packet.size = sizeof(packet);
-	packet.id = id;
-	packet.kind = kind;
 
 	SendPacket(s, &packet);
 }
