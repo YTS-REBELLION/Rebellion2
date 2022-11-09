@@ -159,20 +159,20 @@ void CDungeonScene::init()
 	//pLight->Transform()->SetLocalPos(Vec3(0.f, 1000.f, 0.f));
 	FindLayer(L"Default")->AddGameObject(pLight);
 
-	CGameObject *pObject = new CGameObject;
-	pObject->SetName(L"Light_Test");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRender);
-	// Transform 설정
-	//pObject->Transform()->SetLocalPos(Vec3(-5000.f, 3000.f, 0.f));
-	pObject->Transform()->SetLocalScale(Vec3(500.f, 500.f, 500.f));
-	pObject->AddComponent(new CCollider2D);
-	// MeshRender 설정
-	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"SphereMesh"));
-	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
+	//CGameObject *pObject = new CGameObject;
+	//pObject->SetName(L"Light_Test");
+	//pObject->AddComponent(new CTransform);
+	//pObject->AddComponent(new CMeshRender);
+	//// Transform 설정
+	////pObject->Transform()->SetLocalPos(Vec3(-5000.f, 3000.f, 0.f));
+	//pObject->Transform()->SetLocalScale(Vec3(500.f, 500.f, 500.f));
+	//pObject->AddComponent(new CCollider2D);
+	//// MeshRender 설정
+	//pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"SphereMesh"));
+	//pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
 
-	// AddGameObject
-	FindLayer(L"Default")->AddGameObject(pObject);
+	//// AddGameObject
+	//FindLayer(L"Default")->AddGameObject(pObject);
 
 	// ===================
 	// Player 파일 로드

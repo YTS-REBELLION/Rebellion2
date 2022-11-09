@@ -13,6 +13,7 @@ class CLight2D;
 class CLight3D;
 class CCamera;
 class CAnimator3D;
+class CTrailRenderer;
 
 class CParticleSystem;
 
@@ -59,6 +60,7 @@ public:
 	CCamera* Camera() { return (CCamera*)m_arrCom[(UINT)COMPONENT_TYPE::CAMERA]; }
 	CLight2D* Light2D() { return (CLight2D*)m_arrCom[(UINT)COMPONENT_TYPE::LIGHT2D]; }
 	CLight3D* Light3D() { return (CLight3D*)m_arrCom[(UINT)COMPONENT_TYPE::LIGHT3D]; }
+	CTrailRenderer* TrailRenderer() { return (CTrailRenderer*)m_arrCom[(UINT)COMPONENT_TYPE::TRAILRENDERER]; }
 
 	const vector<CScript*>& GetScripts() const { return m_vecScript; }
 

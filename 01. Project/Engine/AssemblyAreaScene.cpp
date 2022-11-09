@@ -216,7 +216,7 @@ void CAssemblyAreaScene::CreateMap()
 			pObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_1, pNormal.GetPointer());
 	
 			// AddGameObject
-			FindLayer(L"Default")->AddGameObject(pObject);
+			FindLayer(L"Map")->AddGameObject(pObject);
 	
 		}
 	}
@@ -253,7 +253,7 @@ void CAssemblyAreaScene::CreateMap()
 	pSkybox->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"SkyboxMtrl"));
 	pSkybox->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_0, pSkyboxTex.GetPointer());
 
-	FindLayer(L"Default")->AddGameObject(pSkybox, false);
+	FindLayer(L"Map")->AddGameObject(pSkybox, false);
 }
 
 void CAssemblyAreaScene::init()
@@ -270,24 +270,6 @@ void CAssemblyAreaScene::init()
 	GetLayer(8)->SetName(L"Player_Skill");
 
 	CreateMap();
-
-	// ====================
-	// 3D Light Object 추가
-	// ====================
-	CGameObject* pLight = new CGameObject;
-	pLight->AddComponent(new CTransform);
-	pLight->AddComponent(new CLight3D);
-
-	pLight->Light3D()->SetLightPos(Vec3(2000.f, 3000.f, 2000.f));
-	pLight->Light3D()->SetLightType(LIGHT_TYPE::DIR);
-	pLight->Light3D()->SetDiffuseColor(Vec3(1.f, 1.f, 1.f));
-	pLight->Light3D()->SetSpecular(Vec3(0.1f, 0.1f, 0.1f));
-	pLight->Light3D()->SetAmbient(Vec3(0.8f, 0.8f, 0.8f));
-	pLight->Light3D()->SetLightDir(Vec3(-1.f, -1.f, -1.f));
-	pLight->Light3D()->SetLightRange(10000.f);
-	//pLight->Transform()->SetLocalPos(Vec3(0.f, 1000.f, 0.f));
-	FindLayer(L"Default")->AddGameObject(pLight);
-
 	// ===================
 	// Player 파일 로드
 	// ===================
@@ -420,6 +402,22 @@ void CAssemblyAreaScene::init()
 	
 	FindLayer(L"UI")->AddGameObject(pUICam);
 
+	// ====================
+	// 3D Light Object 추가
+	// ====================
+	CGameObject* pLight = new CGameObject;
+	pLight->AddComponent(new CTransform);
+	pLight->AddComponent(new CLight3D);
+
+	pLight->Light3D()->SetLightPos(Vec3(2000.f, 3000.f, 2000.f));
+	pLight->Light3D()->SetLightType(LIGHT_TYPE::DIR);
+	pLight->Light3D()->SetDiffuseColor(Vec3(1.f, 1.f, 1.f));
+	pLight->Light3D()->SetSpecular(Vec3(0.1f, 0.1f, 0.1f));
+	pLight->Light3D()->SetAmbient(Vec3(0.8f, 0.8f, 0.8f));
+	pLight->Light3D()->SetLightDir(Vec3(-1.f, -1.f, -1.f));
+	pLight->Light3D()->SetLightRange(10000.f);
+	//pLight->Transform()->SetLocalPos(Vec3(0.f, 1000.f, 0.f));
+	FindLayer(L"Default")->AddGameObject(pLight);
 
 	//// ===================
 	//// NPC 로드

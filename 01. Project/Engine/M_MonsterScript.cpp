@@ -195,7 +195,7 @@ void CM_MonsterScript::update()
 
 		}
 
-		//UpdateLerpPos();
+		UpdateLerpPos();
 
 		switch (m_skill)
 		{
@@ -235,8 +235,8 @@ void CM_MonsterScript::update()
 	HpUiPos = m_pUi->Transform()->GetLocalPos();
 
 	if (GetDamege()) {
-		HpUiScale.x -= DT *30.f;//충돌할시 *데미지
-		HpUiPos.x -= (DT*30.f) / 2.f;
+		HpUiScale.x -= DT *50.f;//충돌할시 *데미지
+		HpUiPos.x -= (DT*50.f) / 2.f;
 	}
 
 	m_pUi->Transform()->SetLocalScale(Vec3(HpUiScale.x, HpUiScale.y, HpUiScale.z));

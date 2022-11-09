@@ -105,8 +105,12 @@ void CResMgr::CreateDefaultShader()
 	pShader = new CShader;
 	pShader->CreateVertexShader(L"Shader\\std3d.fx", "VS_Std3D", "vs_5_0");
 	pShader->CreatePixelShader(L"Shader\\std3d.fx", "PS_Std3D", "ps_5_0");
-	
+
 	pShader->Create(SHADER_POV::DEFERRED);
+	//pShader->SetBlendState(BLEND_TYPE::ONEBLEND);
+	//pShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::LESS_NO_WRITE); // ±íÀÌÅ×½ºÆ® o, ±íÀÌ ±â·Ï x
+
+	//pShader->Create(SHADER_POV::FORWARD);
 	AddRes(L"Std3DShader", pShader);
 
 	// =============
@@ -211,14 +215,14 @@ void CResMgr::CreateDefaultShader()
 	AddRes(L"Animaion3DUpdateShader", pShader);
 
 
-	// ==================
-	// trail Shader
-	// ==================
-	pShader = new CShader;
-	pShader->CreateVertexShader(L"Shader\\trail.fx", "VS_TRAIL", "vs_5_0");
-	pShader->CreatePixelShader(L"Shader\\trail.fx", "PS_TRAIL", "ps_5_0");
+	//// ==================
+	//// trail Shader
+	//// ==================
+	//pShader = new CShader;
+	//pShader->CreateVertexShader(L"Shader\\trail.fx", "VS_TRAIL", "vs_5_0");
+	//pShader->CreatePixelShader(L"Shader\\trail.fx", "PS_TRAIL", "ps_5_0");
 
-	AddRes(L"TrailShader", pShader);
+	//AddRes(L"TrailShader", pShader);
 
 
 	// ShadowMap Shader
@@ -267,21 +271,16 @@ void CResMgr::CreateDefaultShader()
 
 	AddRes(L"RainShader", pShader);
 
-
-
 	// ======================
-   // Particle Update Shader
-   // ======================
+    // Particle Update Shader
+    // ======================
 	pShader = new CShader;
 	pShader->CreateComputeShader(L"Shader\\particle.fx", "CS_ParticleUpdate", "cs_5_0");
 	AddRes(L"ParticleUpdateShader", pShader);
 
-
-
-
 	// =================
-   // Distortion Shader
-   // =================
+	// Distortion Shader
+	// =================
 	pShader = new CShader;
 	pShader->CreateVertexShader(L"Shader\\posteffect.fx", "VS_Distortion", "vs_5_0");
 	pShader->CreatePixelShader(L"Shader\\posteffect.fx", "PS_Distortion", "ps_5_0");
@@ -300,23 +299,36 @@ void CResMgr::CreateDefaultShader()
 	AddRes(L"DistortionCharacterShader", pShader);
 
 	// ======================
-// Rain Update Shader
-// ======================
+	// Rain Update Shader
+	// ======================
 	pShader = new CShader;
 	pShader->CreateComputeShader(L"Shader\\rain.fx", "CS_RainUpdate", "cs_5_0");
 	AddRes(L"RainUpdateShader", pShader);
 
 	// ======================
-  // Fire Shader
-  // ======================
-   pShader = new CShader;
-   pShader->CreateVertexShader(L"Shader\\fire.fx", "VS_Fire", "vs_5_0");
-   pShader->CreatePixelShader(L"Shader\\fire.fx", "PS_Fire", "ps_5_0");
-   pShader->SetBlendState(BLEND_TYPE::ALPHABLEND);
-   pShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::LESS_NO_WRITE);
-   pShader->Create(SHADER_POV::FORWARD);
-   AddRes(L"FireShader", pShader);
+	// Fire Shader
+	// ======================
+	pShader = new CShader;
+	pShader->CreateVertexShader(L"Shader\\fire.fx", "VS_Fire", "vs_5_0");
+	pShader->CreatePixelShader(L"Shader\\fire.fx", "PS_Fire", "ps_5_0");
+	pShader->SetBlendState(BLEND_TYPE::ALPHABLEND);
+	pShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::LESS_NO_WRITE);
+	pShader->Create(SHADER_POV::FORWARD);
+	AddRes(L"FireShader", pShader);
 
+	// Æ®·¹ÀÏ
+	pShader = new CShader;
+	pShader->CreateVertexShader(L"Shader\\trail.fx", "VS_Trail", "vs_5_0");
+	pShader->CreatePixelShader(L"Shader\\trail.fx", "PS_Trail", "ps_5_0");
+
+	pShader->SetBlendState(BLEND_TYPE::ONEBLEND);
+	pShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::LESS_NO_WRITE); // ±íÀÌÅ×½ºÆ® o, ±íÀÌ ±â·Ï x
+
+	pShader->Create(SHADER_POV::FORWARD);
+
+	pShader->AddShaderParam(tShaderParam{ L"Trail Texture", SHADER_PARAM::TEX_0 });
+
+	AddRes(L"TrailShader", pShader);
 }
 
 
@@ -367,6 +379,11 @@ void CResMgr::CreateDefaultMaterial()
 	pMtrl->DisableFileSave();
 	pMtrl->SetShader(FindRes<CShader>(L"Std3DShader"));
 	AddRes(L"Std3DMtrl", pMtrl);
+
+	pMtrl = new CMaterial;
+	pMtrl->DisableFileSave();
+	pMtrl->SetShader(FindRes<CShader>(L"Std3DShader"));
+	AddRes(L"WeapeonMtrl", pMtrl);
 
 	pMtrl = new CMaterial;
 	pMtrl->DisableFileSave();
@@ -463,15 +480,19 @@ void CResMgr::CreateDefaultMaterial()
 	//AddRes(L"Material\\2DShadowMtrl.mtrl", pMtrl);
 
 
-	// ==================
-	// trail Material
-	// ==================
+	//// ==================
+	//// trail Material
+	//// ==================
+	//pMtrl = new CMaterial;
+	//pMtrl->DisableFileSave();
+	//pMtrl->SetShader(FindRes<CShader>(L"TrailShader"));
+	//AddRes(L"TrailMtrl", pMtrl);
+
+	// Æ®·¹ÀÏ
 	pMtrl = new CMaterial;
 	pMtrl->DisableFileSave();
 	pMtrl->SetShader(FindRes<CShader>(L"TrailShader"));
 	AddRes(L"TrailMtrl", pMtrl);
-
-	
 
 	// ShadowMap Material
 	pMtrl = new CMaterial;
@@ -983,6 +1004,120 @@ void CResMgr::CreateDefaultMesh()
 		, DXGI_FORMAT_R32_UINT, (UINT)vecIdx.size(), (BYTE*)vecIdx.data());
 
 	pMesh->SetName(L"SphereMesh");
+	AddRes<CMesh>(pMesh->GetName(), pMesh);
+
+	vecVTX.clear();
+	vecIdx.clear();
+
+	// ============
+	// Sphere Mesh
+	// ============
+	fRadius = 1.f;
+
+	// Top
+	v.vPos = Vec3(0.f, fRadius, 0.f);
+	v.vUV = Vec2(0.5f, 0.f);
+	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	v.vNormal = v.vPos;
+	v.vNormal.Normalize();
+	v.vTangent = Vec3(1.f, 0.f, 0.f);
+	v.vBinormal = Vec3(0.f, 0.f, 1.f);
+	vecVTX.push_back(v);
+
+	// Body
+	iStackCount = 20; // °¡·Î ºÐÇÒ °³¼ö
+	iSliceCount = 20; // ¼¼·Î ºÐÇÒ °³¼ö
+
+	fStackAngle = XM_PI / iStackCount;
+	fSliceAngle = XM_2PI / iSliceCount;
+
+	fUVXStep = 1.f / (float)iSliceCount;
+	fUVYStep = 1.f / (float)iStackCount;
+
+	for (UINT i = 1; i < iStackCount; ++i)
+	{
+		float phi = i * fStackAngle;
+
+		for (UINT j = 0; j <= iSliceCount; ++j)
+		{
+			float theta = j * fSliceAngle;
+
+			v.vPos = Vec3(fRadius * sinf(i * fStackAngle) * cosf(j * fSliceAngle)
+				, fRadius * cosf(i * fStackAngle)
+				, fRadius * sinf(i * fStackAngle) * sinf(j * fSliceAngle));
+			v.vUV = Vec2(fUVXStep * j, fUVYStep * i);
+			v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+			v.vNormal = v.vPos;
+			v.vNormal.Normalize();
+
+			v.vTangent.x = -fRadius * sinf(phi) * sinf(theta);
+			v.vTangent.y = 0.f;
+			v.vTangent.z = fRadius * sinf(phi) * cosf(theta);
+			v.vTangent.Normalize();
+
+			v.vTangent.Cross(v.vNormal, v.vBinormal);
+			v.vBinormal.Normalize();
+
+			vecVTX.push_back(v);
+		}
+	}
+
+	// Bottom
+	v.vPos = Vec3(0.f, 0.f, 0.f);
+	v.vUV = Vec2(0.5f, 1.f);
+	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	v.vNormal = v.vPos;
+	v.vNormal.Normalize();
+
+	v.vTangent = Vec3(1.f, 0.f, 0.f);
+	v.vBinormal = Vec3(0.f, 0.f, -1.f);
+	vecVTX.push_back(v);
+
+	// ÀÎµ¦½º
+	// ºÏ±ØÁ¡
+	for (UINT i = 0; i < iSliceCount; ++i)
+	{
+		vecIdx.push_back(0);
+		vecIdx.push_back(i + 2);
+		vecIdx.push_back(i + 1);
+	}
+
+	// ¸öÅë
+	for (UINT i = 0; i < iStackCount - 2; ++i)
+	{
+		for (UINT j = 0; j < iSliceCount; ++j)
+		{
+			// + 
+			// | \
+			// +--+
+			vecIdx.push_back((iSliceCount + 1) * (i)+(j)+1);
+			vecIdx.push_back((iSliceCount + 1) * (i + 1) + (j + 1) + 1);
+			vecIdx.push_back((iSliceCount + 1) * (i + 1) + (j)+1);
+
+			// +--+
+			//  \ |
+			//    +
+			vecIdx.push_back((iSliceCount + 1) * (i)+(j)+1);
+			vecIdx.push_back((iSliceCount + 1) * (i)+(j + 1) + 1);
+			vecIdx.push_back((iSliceCount + 1) * (i + 1) + (j + 1) + 1);
+		}
+	}
+
+	// ³²±ØÁ¡
+	iBottomIdx = (UINT)vecVTX.size() - 1;
+	for (UINT i = 0; i < iSliceCount; ++i)
+	{
+		vecIdx.push_back(iBottomIdx);
+		vecIdx.push_back(iBottomIdx - (i + 2));
+		vecIdx.push_back(iBottomIdx - (i + 1));
+	}
+
+	pMesh = new CMesh;
+
+	pMesh->Create(sizeof(VTX), (UINT)vecVTX.size(), (BYTE*)vecVTX.data()
+		, DXGI_FORMAT_R32_UINT, (UINT)vecIdx.size(), (BYTE*)vecIdx.data());
+
+	pMesh->SetName(L"WSphereMesh");
 	AddRes<CMesh>(pMesh->GetName(), pMesh);
 
 	vecVTX.clear();

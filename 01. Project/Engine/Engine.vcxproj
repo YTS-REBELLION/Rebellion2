@@ -275,6 +275,8 @@ call EngineCopy.bat</Command>
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="ToolCamScript.h" />
+    <ClInclude Include="Trail.h" />
+    <ClInclude Include="TrailRenderer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UnleashedPower.h" />
@@ -387,6 +389,8 @@ call EngineCopy.bat</Command>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="ToolCamScript.cpp" />
+    <ClCompile Include="Trail.cpp" />
+    <ClCompile Include="TrailRenderer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UnleashedPower.cpp" />

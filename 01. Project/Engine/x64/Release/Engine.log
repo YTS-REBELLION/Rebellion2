@@ -670,7 +670,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   
-  Animator3D.cpp
+  SwordScript.cpp
 C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(45,78): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
@@ -681,14 +681,5 @@ C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(47,100): wa
           [
               _Ty=float
           ]
-C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.cpp(41,48): warning C4244: '+=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.cpp(45,47): warning C4244: '+=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\SwordScript.cpp(102,33): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Engine.vcxproj -> C:\Users\gxg11\Desktop\GP\Rebellion2\03. External\Library\Engine\Engine.lib
