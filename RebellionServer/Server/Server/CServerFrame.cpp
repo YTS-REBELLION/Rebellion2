@@ -376,7 +376,7 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 				_objects[i].SetLevel(2);
 				++gameLevel;
 				cout << "두번째 퀘스트 완료 패킷 전송 " << endl;
-				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
+				//_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
 				isSecondQuestDone = true;
 			}
 			monsterdieCnt = 0;
@@ -410,7 +410,7 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 			for (int i = 0; i < _acceptNumber; ++i) {
 				++gameLevel;
 				cout << "세번째 퀘스트 완료 패킷 전송 " << endl;
-				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
+				//_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
 				isThirdQuestDone = true;
 			}
 			monsterdieCnt = 0;
