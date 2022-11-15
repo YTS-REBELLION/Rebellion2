@@ -861,6 +861,7 @@ void CNetwork::ProcessPacket(char* ptr)
 			cout << "퀘스트 완료!" << endl;
 			cout << "다음 퀘스트 고고 !" << endl;
 		}
+		
 
 		switch (packet->nextQuest) {
 		case QUEST::SECOND: {

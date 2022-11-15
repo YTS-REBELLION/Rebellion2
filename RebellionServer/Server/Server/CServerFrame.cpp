@@ -376,7 +376,7 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 				_objects[i].SetLevel(2);
 				++gameLevel;
 				cout << "두번째 퀘스트 완료 패킷 전송 " << endl;
-				//_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
+				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
 				isSecondQuestDone = true;
 			}
 			monsterdieCnt = 0;
@@ -410,7 +410,7 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 			for (int i = 0; i < _acceptNumber; ++i) {
 				++gameLevel;
 				cout << "세번째 퀘스트 완료 패킷 전송 " << endl;
-				//_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
+				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
 				isThirdQuestDone = true;
 			}
 			monsterdieCnt = 0;
@@ -463,7 +463,6 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 		}
 		else {
 			fullEnter = true;
-
 			_objects[id].ClearViewList();
 			_objects[id].SetDunGeonEnter(true);
 
@@ -485,71 +484,79 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 	case CS_PACKET_BOSSMAP:
 	{
 		cs_packet_bossmap* packet = reinterpret_cast<cs_packet_bossmap*>(buf);
-
-		unordered_set<int> old_viewList = _objects[id].GetViewList();
-
-		_objects[id].ClearViewList();
-		_objects[id].DungeonClearViewList();
-
-		for (int i = 0; i < _enterRoom.size(); ++i) {
-			_objects[i].SetBossMapEnter(true);
-			_objects[i].SetDunGeonEnter(false);
-
-			if (i == id) continue;
-			if (false == IsPlayer(i)) continue;
-			_objects[i].ClientLock();
-			_objects[i].DungeonEraseViewList(id);
-			_objects[i].ClientUnLock();
-			_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), id);
-
-		}
-
-
-		_objects[id].ClientLock();
-		_objects[id].SetPos(Vec3(0.f, 0.f, 0.f));
-		for (auto& users : _enterRoom)
-			_sender->SendBossMapPacket(_objects[users].GetSocket(), users, true);
-
-		_objects[id].ClientUnLock();
 		
+		_enterRoom.insert(id);
 
-		_objects[NPC_ID_START+40].SetPos(Vec3(150.f, 0.f, 1200.f));
-		_objects[NPC_ID_START + 40].SetID(NPC_ID_START + 40);
-		_objects[NPC_ID_START + 40]._status = ST_SLEEP;
-		_objects[NPC_ID_START + 40].SetSpeed(2000.f);
-		_objects[NPC_ID_START + 40].SetMoveType(RANDOM);
-		_objects[NPC_ID_START + 40].SetIsAttack(false);
-		_objects[NPC_ID_START + 40].SetDunGeonEnter(false);
-		_objects[NPC_ID_START + 40].SetBossMapEnter(true);
-	
-		
-		for (auto& users : _enterRoom) {
-			_sender->SendPutObjectPacket(_objects[users].GetSocket(), 141,
-				_objects[141].GetPos().x, _objects[141].GetPos().y, _objects[141].GetPos().z,
-				_objects[141].GetMyType());
+		if (_enterRoom.size() != _acceptNumber) {
+			for (auto& users : _enterRoom)
+				_sender->Send_WaitRoom_Packet(_objects[users].GetSocket(), _enterRoom.size());
 		}
+		else {
+			unordered_set<int> old_viewList = _objects[id].GetViewList();
+
+			_objects[id].ClearViewList();
+			_objects[id].DungeonClearViewList();
+
+			for (int i = 0; i < _enterRoom.size(); ++i) {
+				_objects[i].SetBossMapEnter(true);
+				_objects[i].SetDunGeonEnter(false);
+
+				if (i == id) continue;
+				if (false == IsPlayer(i)) continue;
+				_objects[i].ClientLock();
+				_objects[i].DungeonEraseViewList(id);
+				_objects[i].ClientUnLock();
+				_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), id);
+
+			}
 
 
-		for (int i = 0; i < _enterRoom.size(); ++i) {
-			if (id == i) continue;
-			if (true == IsNear(id, i)) {
+			_objects[id].ClientLock();
+			_objects[id].SetPos(Vec3(0.f, 0.f, 0.f));
+			for (auto& users : _enterRoom)
+				_sender->SendBossMapPacket(_objects[users].GetSocket(), users, true);
 
-				if (ST_ACTIVE == _objects[i]._status) {
+			_objects[id].ClientUnLock();
 
-					_objects[id].ClientLock();
-					_objects[id].BossMapInsertViewList(i);
-					_objects[id].ClientUnLock();
-					_sender->SendPutObjectPacket(_objects[id].GetSocket(), i, _objects[i].GetPos().x,
-						_objects[i].GetPos().y, _objects[i].GetPos().z, _objects[i].GetMyType());
 
-					if (true == IsPlayer(i)) {
-						_objects[i].ClientLock();
-						_objects[i].BossMapInsertViewList(id);
-						_objects[i].ClientUnLock();
+			_objects[NPC_ID_START + 40].SetPos(Vec3(150.f, 0.f, 1200.f));
+			_objects[NPC_ID_START + 40].SetID(NPC_ID_START + 40);
+			_objects[NPC_ID_START + 40]._status = ST_SLEEP;
+			_objects[NPC_ID_START + 40].SetSpeed(2000.f);
+			_objects[NPC_ID_START + 40].SetMoveType(RANDOM);
+			_objects[NPC_ID_START + 40].SetIsAttack(false);
+			_objects[NPC_ID_START + 40].SetDunGeonEnter(false);
+			_objects[NPC_ID_START + 40].SetBossMapEnter(true);
 
-						_sender->SendPutObjectPacket(_objects[i].GetSocket(), id, _objects[id].GetPos().x,
-							_objects[id].GetPos().y, _objects[id].GetPos().z, _objects[id].GetMyType());
 
+			for (auto& users : _enterRoom) {
+				_sender->SendPutObjectPacket(_objects[users].GetSocket(), 141,
+					_objects[141].GetPos().x, _objects[141].GetPos().y, _objects[141].GetPos().z,
+					_objects[141].GetMyType());
+			}
+
+
+			for (int i = 0; i < _enterRoom.size(); ++i) {
+				if (id == i) continue;
+				if (true == IsNear(id, i)) {
+
+					if (ST_ACTIVE == _objects[i]._status) {
+
+						_objects[id].ClientLock();
+						_objects[id].BossMapInsertViewList(i);
+						_objects[id].ClientUnLock();
+						_sender->SendPutObjectPacket(_objects[id].GetSocket(), i, _objects[i].GetPos().x,
+							_objects[i].GetPos().y, _objects[i].GetPos().z, _objects[i].GetMyType());
+
+						if (true == IsPlayer(i)) {
+							_objects[i].ClientLock();
+							_objects[i].BossMapInsertViewList(id);
+							_objects[i].ClientUnLock();
+
+							_sender->SendPutObjectPacket(_objects[i].GetSocket(), id, _objects[id].GetPos().x,
+								_objects[id].GetPos().y, _objects[id].GetPos().z, _objects[id].GetMyType());
+
+						}
 					}
 				}
 			}
@@ -1608,7 +1615,7 @@ void CServerFrame::DungeonEnter(int id)
 	for (int i = 0; i < _enterRoom.size(); ++i) {
 		_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::SECOND, true);
 	}
-
+	_enterRoom.clear();
 }
 
 void CServerFrame::ComeBackScene(int player_id)

@@ -696,7 +696,7 @@ void CPlayerScript::update()
 				if (m_iClearCnt == QUEST::SECOND && m_Q_Cnt == 3)
 				{
 					m_pQuestBox2_3->SetDead();
-					//m_bQuest_02_clear = true;
+					m_bQuest_02_clear = true;
 					m_Q_Cnt = 0;
 
 					tResolution res = CRenderMgr::GetInst()->GetResolution();
@@ -1752,7 +1752,7 @@ void CPlayerScript::QuestInit(QUEST questNum)
 	}
 	case QUEST::THIRD: {
 		cout << "세번째 퀘스트" << endl;
-		m_pQuestBoxExplane5->SetDead();
+		m_pQuestBoxExplane2->SetDead();
 		//m_pQuestBoxExplane2->SetDead();
 		//m_pQuestBoxExplane5->SetDead();
 		//m_pQuestComplete->SetDead();
