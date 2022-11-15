@@ -921,7 +921,7 @@ void CNetwork::ProcessPacket(char* ptr)
 
 		GameObject.find(p->id)->second->GetScript<CPlayerScript>()->SetMain();
 
-		GameObject.find(g_myid)->second->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
+		GameObject.find(p->id)->second->GetScript<CPlayerScript>()->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
 		GameObject.find(g_myid)->second->GetScript<CPlayerScript>()->SetQuestStart(true);
 
 		break;

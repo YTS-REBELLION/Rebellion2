@@ -1035,7 +1035,6 @@ void CServerFrame::Do_move(const short& id, const char& dir, Vec3& localPos, con
 {
 	
 	unordered_set<int> vl = _objects[id].GetViewList();
-	time_point<system_clock> curTime = system_clock::now();
 
 	_objects[id].ClientLock();
 
@@ -1142,8 +1141,6 @@ void CServerFrame::Do_move(const short& id, const char& dir, Vec3& localPos, con
 	//	}
 	//}
 
-	_elapsedTime = curTime - _prevTime;
-	_prevTime = curTime;
 }
 void CServerFrame::Do_move_Dungeon(const short& id, const char& dir, Vec3& localPos, const float& rotate)
 {
