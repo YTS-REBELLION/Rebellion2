@@ -49,14 +49,14 @@ OBJECT_TYPE CheckType(const short& id)
 
 
 CNetwork g_net;
-//const char* SERVER_IP = "127.0.0.1";ipco
+const char* SERVER_IP = "127.0.0.1";
 //const char* SERVER_IP = "192.168.63.11";
 //const char* SERVER_IP = "121.190.132.161";
 //const char* SERVER_IP = "172.20.10.2";
 //const char* SERVER_IP = "172.30.1.54";
 //const char* SERVER_IP = "192.168.0.36";
 //const char* SERVER_IP = "10.30.2.22";
-const char* SERVER_IP = "14.51.115.27";
+//const char* SERVER_IP = "14.51.115.27";
 
 OBJ GameObject;
 
@@ -614,7 +614,7 @@ void CNetwork::ProcessPacket(char* ptr)
 			GameObject.find(id)->second->GetScript<CMonsterScript>()->GetColSSA()->SetDead();
 			GameObject.find(id)->second->GetScript<CMonsterScript>()->GetObj()->SetDead();
 			GameObject.erase(id);
-
+			cout << "¸ó½ºÅÍ »ç¸Á FM_MONSTER" << endl;
 			if (g_myid == pid) {
 				switch (GameObject.find(pid)->second->GetScript<CPlayerScript>()->GetQuestCnt()) {
 				case QUEST::SECOND:
@@ -640,6 +640,7 @@ void CNetwork::ProcessPacket(char* ptr)
 			GameObject.find(id)->second->GetScript<CMonsterScript2>()->GetColSSA()->SetDead();
 			GameObject.find(id)->second->GetScript<CMonsterScript2>()->GetObj()->SetDead();
 			GameObject.erase(id);
+			cout << "¸ó½ºÅÍ »ç¸Á M_MONSTER" << endl;
 
 			if (g_myid == pid) {
 				switch (GameObject.find(pid)->second->GetScript<CPlayerScript>()->GetQuestCnt()) {

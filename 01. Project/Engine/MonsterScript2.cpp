@@ -99,7 +99,7 @@ void CMonsterScript2::update()
 
 	vRot = Vec3(-m_fAngle - 1.5f, localRot.y, localRot.z);
 
-	cout << m_fAngle << endl;
+	//cout << m_fAngle << endl;
 	Monster->Transform()->SetLocalRot(vRot);
 
 	if (m_Is_Move) {
