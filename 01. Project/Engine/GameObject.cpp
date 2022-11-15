@@ -139,12 +139,14 @@ void CGameObject::ClearParent(CGameObject* _pNextParent)
 
 void CGameObject::SetDead()
 {
-	m_bDead = true;
-
-	for (size_t i = 0; i < m_vecChild.size(); ++i)
-	{
-		m_vecChild[i]->SetDead();
+   	if (!m_bDead) {
+		for (size_t i = 0; i < m_vecChild.size(); ++i)
+		{
+			m_vecChild[i]->SetDead();
+		}
+		m_bDead = true;
 	}
+		
 }
 
 void CGameObject::AddComponent(CComponent * _pCom)

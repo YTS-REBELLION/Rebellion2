@@ -350,21 +350,23 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 			break;
 		}
 		
-		
-		_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
+		//_objects[monsterId].ClientLock();
+		//_objects[monsterId].ClientUnLock();
 
 		unordered_set<int> old_viewList = _objects[id].GetViewList();
+		if (_objects[monsterId]._status != ST_FREE) {
+			_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
 
-		if (_objects[monsterId].GetCurrentHp() <= 0) {
-			_objects[monsterId]._status = ST_FREE;
-			++monsterdieCnt;
-			for (int i = 0; i < _acceptNumber; ++i) {
-				_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, monsterdieCnt);
+			if (_objects[monsterId].GetCurrentHp() <= 0) {
+				_objects[monsterId]._status = ST_FREE;
+				++monsterdieCnt;
+				for (int i = 0; i < _acceptNumber; ++i) {
+					_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, monsterdieCnt);
+				}
+
+				cout << "몬스터 잡기 : " << monsterdieCnt << endl;
 			}
-
-			cout << "몬스터 잡기 : " << monsterdieCnt << endl;
 		}
-
 
 		if (monsterdieCnt == 3 && !isSecondQuestDone)
 		{
@@ -378,6 +380,8 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 				isSecondQuestDone = true;
 			}
 			monsterdieCnt = 0;
+
+
 		}
 
 		if (monsterdieCnt == 4 && gameLevel == 2) {

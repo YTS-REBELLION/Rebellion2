@@ -33,7 +33,8 @@
 OBJECT_TYPE CheckType(const short& id)
 {
 	if (id >= 0 && id < MAX_USER) return OBJECT_TYPE::PLAYER;
-	else if (id > NPC_ID_START - 1 && NPC_ID_START + 40 > id)
+	else if (id >= MAX_USER && id < 141) return OBJECT_TYPE::FM_MONSTER;
+	/*else if (id > NPC_ID_START - 1 && NPC_ID_START + 40 > id)
 	{
 		for (int i = NPC_ID_START - 1; i < NPC_ID_START + 40; i++)
 		{
@@ -41,7 +42,7 @@ OBJECT_TYPE CheckType(const short& id)
 			else return OBJECT_TYPE::M_MONSTER;
 
 		}
-	}
+	}*/
 	else if (id == 141) return OBJECT_TYPE::BOSS;
 
 	//else if (id >= NPC_ID_START + 41 && NPC_ID_START + 50) return OBJECT_TYPE::M_MONSTER;
@@ -608,14 +609,14 @@ void CNetwork::ProcessPacket(char* ptr)
 		int id = packet->id;
 		cout << "leave id : " << id << endl;
 		int pid = packet->playerId;
-
+		
 		if (CheckType(id) == OBJECT_TYPE::FM_MONSTER) {
 			GameObject.find(id)->second->GetScript<CMonsterScript>()->GetColMonster()->SetDead();
 			GameObject.find(id)->second->GetScript<CMonsterScript>()->GetColSSA()->SetDead();
 			GameObject.find(id)->second->GetScript<CMonsterScript>()->GetObj()->SetDead();
 			GameObject.erase(id);
 			cout << "¸ó½ºÅÍ »ç¸Á FM_MONSTER" << endl;
-			if (g_myid == pid) {
+			/*if (g_myid == pid) {
 				switch (GameObject.find(pid)->second->GetScript<CPlayerScript>()->GetQuestCnt()) {
 				case QUEST::SECOND:
 				{
@@ -632,7 +633,7 @@ void CNetwork::ProcessPacket(char* ptr)
 					break;
 				}
 				}
-			}
+			}*/
 
 		}
 		else if (CheckType(id) == OBJECT_TYPE::M_MONSTER) {
