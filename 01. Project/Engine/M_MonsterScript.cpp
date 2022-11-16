@@ -57,7 +57,7 @@ void CM_MonsterScript::init()
 	tResolution res = CRenderMgr::GetInst()->GetResolution();
 	CGameObject* pObject = new CGameObject;
 	
-	Vec3 FrameUiScale = { 350,40,1 };
+	Vec3 FrameUiScale = { 500,30,1 };
 
 	//체력 UI
 	pObject = new CGameObject;
@@ -235,8 +235,8 @@ void CM_MonsterScript::update()
 	HpUiPos = m_pUi->Transform()->GetLocalPos();
 
 	if (GetDamege()) {
-		HpUiScale.x -= DT *50.f;//충돌할시 *데미지
-		HpUiPos.x -= (DT*50.f) / 2.f;
+		HpUiScale.x -= DT *75.f;//충돌할시 *데미지
+		HpUiPos.x -= (DT*75.f) / 2.f;
 	}
 
 	m_pUi->Transform()->SetLocalScale(Vec3(HpUiScale.x, HpUiScale.y, HpUiScale.z));
@@ -321,6 +321,12 @@ void CM_MonsterScript::OnCollisionEnter(CCollider2D* _pOther)
 	{
 		SetDamege();
 		SetHit();
+		if (GetHit())
+		{
+			g_net.Send_Player2MonsterCol_Packet(GetObj()->GetID(), GetID(), true, 0);
+		}
+		cout << GetID() << endl;
+
 		//if (GetHit()) {
 		//	g_net.Send_Player2MonsterCol_Packet(GetObj()->GetID(), GetID(), true, 0);
 		//}

@@ -154,7 +154,7 @@ void CServerFrame::InitClients()
 		_objects[i].SetCurrentHp(1500);
 		_objects[i].SetMaxHp(2000);
 		_objects[i].SetPos(pos);
-		_objects[i].SetDamage(40);
+		_objects[i].SetDamage(50);
 		_objects[i].SetLevel(1);
 		_objects[i].SetIsAttack(false);
 		
@@ -329,100 +329,113 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 		cs_packet_player2monstercol* packet = reinterpret_cast<cs_packet_player2monstercol*>(buf);
 		int monsterId = packet->playerId;
 		int pid = packet->id;
-		switch (packet->attackType) {
-		case 0: {
-			
+		if (monsterId == 141)
+		{
+			_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
+			cout << _objects[monsterId].GetCurrentHp() << endl;
+			if (_objects[monsterId].GetCurrentHp() <= 0)
+			{
+				_objects[monsterId]._status = ST_FREE;
+				for (int i = 0; i < _acceptNumber; ++i) {
+					_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, 0);
+				}
+			}
+		}
+		else {
+			switch (packet->attackType) {
+			case 0: {
+
+				_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
+
+
+				break;
+			}
+			case 1: {
+				cout << "스킬 맞음" << endl;
+
+				_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
+
+
+				break;
+			}
+			default:
+				cout << "패킷 오류" << endl;
+				break;
+			}
+
+
 			_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
 
+			unordered_set<int> old_viewList = _objects[id].GetViewList();
 
-			break;
-		}
-		case 1: {
-			cout << "스킬 맞음" << endl;
+			if (_objects[monsterId].GetCurrentHp() <= 0) {
+				_objects[monsterId]._status = ST_FREE;
+				++monsterdieCnt;
+				for (int i = 0; i < _acceptNumber; ++i) {
+					_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, monsterdieCnt);
+				}
 
-			_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
-
-
-			break;
-		}
-		default:
-			cout << "패킷 오류" << endl;
-			break;
-		}
-		
-		
-		_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
-
-		unordered_set<int> old_viewList = _objects[id].GetViewList();
-
-		if (_objects[monsterId].GetCurrentHp() <= 0) {
-			_objects[monsterId]._status = ST_FREE;
-			++monsterdieCnt;
-			for (int i = 0; i < _acceptNumber; ++i) {
-				_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, monsterdieCnt);
+				cout << "몬스터 잡기 : " << monsterdieCnt << endl;
 			}
 
-			cout << "몬스터 잡기 : " << monsterdieCnt << endl;
-		}
 
+			if (monsterdieCnt == 3 && !isSecondQuestDone)
+			{
 
-		if (monsterdieCnt == 3 && !isSecondQuestDone)
-		{
-			
-			for(int i = 0; i<_acceptNumber;++i){
-				// 레벨업
-				_objects[i].SetLevel(2);
+				for (int i = 0; i < _acceptNumber; ++i) {
+					// 레벨업
+					_objects[i].SetLevel(2);
+					++gameLevel;
+					cout << "두번째 퀘스트 완료 패킷 전송 " << endl;
+					_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
+					isSecondQuestDone = true;
+				}
+				monsterdieCnt = 0;
+			}
+
+			if (monsterdieCnt == 4 && gameLevel == 2) {
+				monsterdieCnt = 0;
 				++gameLevel;
-				cout << "두번째 퀘스트 완료 패킷 전송 " << endl;
-				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
-				isSecondQuestDone = true;
 			}
-			monsterdieCnt = 0;
-		}
-
-		if (monsterdieCnt == 4 && gameLevel == 2) {
-			monsterdieCnt = 0;
-			++gameLevel;
-		}
-		if (monsterdieCnt == 5 && gameLevel == 3) {
-			monsterdieCnt = 0;
-			++gameLevel;
-		}
-		if (monsterdieCnt == 5 && gameLevel == 4) {
-			monsterdieCnt = 0;
-			++gameLevel;
-		}
-		if (monsterdieCnt == 5 && gameLevel == 5) {
-			monsterdieCnt = 0;
-			++gameLevel;
-		}
-		if (monsterdieCnt == 6 && gameLevel == 6) {
-			monsterdieCnt = 0;
-			++gameLevel;
-		}
-		
-		if (monsterdieCnt == 6 && !isThirdQuestDone)
-		{
-			for (int i = 0; i < _acceptNumber; ++i) {
+			if (monsterdieCnt == 5 && gameLevel == 3) {
+				monsterdieCnt = 0;
 				++gameLevel;
-				cout << "세번째 퀘스트 완료 패킷 전송 " << endl;
-				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
-				isThirdQuestDone = true;
 			}
-			monsterdieCnt = 0;
+			if (monsterdieCnt == 5 && gameLevel == 4) {
+				monsterdieCnt = 0;
+				++gameLevel;
+			}
+			if (monsterdieCnt == 5 && gameLevel == 5) {
+				monsterdieCnt = 0;
+				++gameLevel;
+			}
+			if (monsterdieCnt == 6 && gameLevel == 6) {
+				monsterdieCnt = 0;
+				++gameLevel;
+			}
+
+			if (monsterdieCnt == 6 && !isThirdQuestDone)
+			{
+				for (int i = 0; i < _acceptNumber; ++i) {
+					++gameLevel;
+					cout << "세번째 퀘스트 완료 패킷 전송 " << endl;
+					_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::FORTH, true);
+					isThirdQuestDone = true;
+				}
+				monsterdieCnt = 0;
+			}
+
+
+			/*if (monsterdieCnt == 14 && !isSecondQuestDone) {
+				++gameLevel;
+				for (int i = 0; i < _acceptNumber; ++i) {
+					cout << "네번째 퀘스트 완료 패킷 전송 " << endl;
+					_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
+					isSecondQuestDone = true;
+
+				}
+			}*/
 		}
-
-
-		/*if (monsterdieCnt == 14 && !isSecondQuestDone) {
-			++gameLevel;
-			for (int i = 0; i < _acceptNumber; ++i) {
-				cout << "네번째 퀘스트 완료 패킷 전송 " << endl;
-				_sender->SendQuestDonePacket(_objects[i].GetSocket(), i, QUEST::THIRD, true);
-				isSecondQuestDone = true;
-				
-			}
-		}*/
-
 
 		break;
 	}
@@ -517,7 +530,8 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 		_objects[NPC_ID_START + 40].SetIsAttack(false);
 		_objects[NPC_ID_START + 40].SetDunGeonEnter(false);
 		_objects[NPC_ID_START + 40].SetBossMapEnter(true);
-	
+		_objects[NPC_ID_START + 40].SetCurrentHp(BOSS_MONSTER_HP);
+		_objects[NPC_ID_START + 40].SetMaxHp(BOSS_MONSTER_HP);
 		
 		for (auto& users : _enterRoom) {
 			_sender->SendPutObjectPacket(_objects[users].GetSocket(), 141,

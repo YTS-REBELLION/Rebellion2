@@ -49,14 +49,14 @@ OBJECT_TYPE CheckType(const short& id)
 
 
 CNetwork g_net;
-//const char* SERVER_IP = "127.0.0.1";ipco
+const char* SERVER_IP = "127.0.0.1";//ipco
 //const char* SERVER_IP = "192.168.63.11";
 //const char* SERVER_IP = "121.190.132.161";
 //const char* SERVER_IP = "172.20.10.2";
 //const char* SERVER_IP = "172.30.1.54";
 //const char* SERVER_IP = "192.168.0.36";
 //const char* SERVER_IP = "10.30.2.22";
-const char* SERVER_IP = "14.51.115.27";
+//const char* SERVER_IP = "14.51.115.27";
 
 OBJ GameObject;
 
@@ -661,6 +661,8 @@ void CNetwork::ProcessPacket(char* ptr)
 			}
 		}
 		else if (CheckType(id) == OBJECT_TYPE::BOSS) {
+			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
+			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetColSSA()->SetDead();
 			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
 			GameObject.erase(id);
 		}
