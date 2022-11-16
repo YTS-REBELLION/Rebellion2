@@ -1,22 +1,24 @@
 ﻿  pch.cpp
   CObject.cpp
   CServerFrame.cpp
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(596,71): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(862,7): warning C4101: 'closed' :참조되지 않은 지역 변수입니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1364,7): warning C4101: 'closed' :참조되지 않은 지역 변수입니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1625,35): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1720,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1721,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1729,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1730,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1736,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1737,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1742,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1743,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1748,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1749,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1754,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1755,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(538,44): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(539,40): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(605,71): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(871,7): warning C4101: 'closed' :참조되지 않은 지역 변수입니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1373,7): warning C4101: 'closed' :참조되지 않은 지역 변수입니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1634,35): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1729,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1730,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1738,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1739,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1745,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1746,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1751,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1752,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1757,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1758,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1763,36): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\Server\CServerFrame.cpp(1764,32): warning C4244: '인수': 'float'에서 'short'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Error.cpp
   func.cpp
   Player.cpp
@@ -27,4 +29,4 @@ C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\Server\CServe
   Previous IPDB not found, fall back to full compilation.
   All 856 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   코드를 생성했습니다.
-  Server.vcxproj -> C:\Users\zndtl\Desktop\Rebellion\Rebellion2\RebellionServer\Server\x64\Release\Server.exe
+  Server.vcxproj -> C:\Users\gxg11\Desktop\GP\Rebellion2\RebellionServer\Server\x64\Release\Server.exe
