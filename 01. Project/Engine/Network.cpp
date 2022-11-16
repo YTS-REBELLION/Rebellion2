@@ -506,7 +506,7 @@ void CNetwork::ProcessPacket(char* ptr)
 				//MonsterScript->SetMonsterAnimationData(pMeshData->GetMesh(), 4, 0, 68);
 
 				GameObject.find(id)->second->GetScript<CM_MonsterScript>()->SetID(id);
-				GameObject.find(id)->second->GetScript<CM_MonsterScript>()->SetLerpPos(Vec3(packet->x, packet->y, packet->z));
+				//GameObject.find(id)->second->GetScript<CM_MonsterScript>()->SetLerpPos(Vec3(packet->x, packet->y, packet->z));
 				GameObject.find(id)->second->MeshRender()->SetDynamicShadow(true);
 				CSceneMgr::GetInst()->GetCurScene()->AddGameObject(L"Monster", GameObject.find(id)->second, false);
 
@@ -947,7 +947,7 @@ void CNetwork::ProcessPacket(char* ptr)
 
 
 
-		GameObject.find(g_myid)->second->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
+		GameObject.find(p->id)->second->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
 		GameObject.find(g_myid)->second->GetScript<CPlayerScript>()->SetQuestStart(true);
 
 		break;

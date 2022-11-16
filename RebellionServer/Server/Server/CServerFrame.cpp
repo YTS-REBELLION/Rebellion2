@@ -331,13 +331,15 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 		int pid = packet->id;
 		if (monsterId == 141)
 		{
-			_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
-			cout << _objects[monsterId].GetCurrentHp() << endl;
-			if (_objects[monsterId].GetCurrentHp() <= 0)
-			{
-				_objects[monsterId]._status = ST_FREE;
-				for (int i = 0; i < _acceptNumber; ++i) {
-					_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, 0);
+			if (_objects[monsterId]._status != ST_FREE) {
+				_objects[monsterId].SetCurrentHp(_objects[monsterId].GetCurrentHp() - _objects[pid].GetDamage());
+				cout << _objects[monsterId].GetCurrentHp() << endl;
+				if (_objects[monsterId].GetCurrentHp() <= 0)
+				{
+					_objects[monsterId]._status = ST_FREE;
+					for (int i = 0; i < _acceptNumber; ++i) {
+						_sender->SendLeaveObjectPacket(_objects[i].GetSocket(), i, monsterId, 0);
+					}
 				}
 			}
 		}
@@ -756,7 +758,7 @@ void CServerFrame::DoWorker()
 			_objects[id].SetIsAttack(false);
 			break;
 		case EV_BOSS_MOVE:
-			BossMove(id);
+			//BossMove(id);
 			delete exp_over;
 			break;
 		default:
