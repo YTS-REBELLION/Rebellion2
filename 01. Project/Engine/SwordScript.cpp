@@ -83,11 +83,12 @@ void CSwordScript::update()
 	////m_pTrail[0]->Transform()->SetQuaternion(qRot);
 	////m_pTrail[0]->Transform()->SetLocalRot(vRot);
 	//
+
 	if (m_eType == PERSON_OBJ_TYPE::WARRIOR_PLAYER) {
-		if ((m_pTargetObject->GetScript<CPlayerScript>()->GetAttack()))
-		{
-			if (m_pTargetObject->GetScript<CPlayerScript>()->GetMain())
+		if (m_pTargetObject->GetScript<CPlayerScript>()->GetMain()) {
+			if ((m_pTargetObject->GetScript<CPlayerScript>()->GetAttack()))
 			{
+
 				Vec3 pos = GetObj()->Transform()->GetLocalPos();
 				Vec3 rot = m_pTargetObject->Transform()->GetLocalRot();//vRot;//GetObj()->Transform()->GetLocalRot();
 				Vec4 qut = qRot;
@@ -119,12 +120,13 @@ void CSwordScript::update()
 						m_iCount += 1;
 					}
 				}
-			}
-		}
 
-		else {
-			for (int i = 0; i < 30; i++) {
-				m_pTrail[i]->Transform()->SetLocalPos(Vec3(0.f, 1000.f, 0.f));
+			}
+
+			else {
+				for (int i = 0; i < 30; i++) {
+					m_pTrail[i]->Transform()->SetLocalPos(Vec3(0.f, 1000.f, 0.f));
+				}
 			}
 		}
 	}
