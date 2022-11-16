@@ -233,6 +233,8 @@ void CMonsterScript::OnCollisionEnter(CCollider2D* _pOther)
 	{
 		SetHit();
 		if (GetHit()) {
+			cout << "왜 여기 안들어옴?" << endl;
+			cout << GetObj()->GetID() << ", " << GetID() << endl;
 			g_net.Send_Player2MonsterCol_Packet(GetObj()->GetID(), GetID(), true, 0);
 		}
 	}

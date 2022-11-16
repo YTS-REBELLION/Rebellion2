@@ -664,6 +664,8 @@ void CNetwork::ProcessPacket(char* ptr)
 		}
 		else if (CheckType(id) == OBJECT_TYPE::BOSS) {
 			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
+			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetColSSA()->SetDead();
+			GameObject.find(id)->second->GetScript<CM_MonsterScript>()->GetObj()->SetDead();
 			GameObject.erase(id);
 		}
 		else if (CheckType(id) == OBJECT_TYPE::PLAYER) {

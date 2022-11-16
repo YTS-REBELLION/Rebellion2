@@ -15,6 +15,7 @@
 *.ipch
 *.res
 *.user
+01. Project/Engine/x64/
 RebellionServer/Server/.vs/Server/v17/Browse.VC.opendb
 03. External/Library/Engine/Engine_debug.idb
 03. External/Library/Engine/Engine_debug.lib
