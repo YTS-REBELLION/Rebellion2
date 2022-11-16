@@ -670,8 +670,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   
-  M_MonsterScript.cpp
-C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\M_MonsterScript.h(97,38): warning C4244: '=': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  SwordScript.cpp
 C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(45,78): warning C4244: '=': 'const double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
           [
@@ -682,7 +681,7 @@ C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\Animator3D.h(47,100): wa
           [
               _Ty=float
           ]
-C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\M_MonsterScript.cpp(213,16): warning C4102: 'Monster_Skill': 참조되지 않은 레이블입니다.
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\SwordScript.cpp(111,35): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\ResMgr.h(137,1): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\M_MonsterScript.h(158): message : 컴파일되는 함수 템플릿 인스턴스화 'Ptr<CTexture> CResMgr::Load<CTexture>(const std::wstring &,const std::wstring &)'에 대한 참조를 확인하세요.
+C:\Users\gxg11\Desktop\GP\Rebellion2\01. Project\Engine\PlayerScript.h(108): message : 컴파일되는 함수 템플릿 인스턴스화 'Ptr<CTexture> CResMgr::Load<CTexture>(const std::wstring &,const std::wstring &)'에 대한 참조를 확인하세요.
   Engine.vcxproj -> C:\Users\gxg11\Desktop\GP\Rebellion2\03. External\Library\Engine\Engine.lib

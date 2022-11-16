@@ -66,7 +66,7 @@ void CSwordScript::awake()
 			m_pTrail[i]->MeshRender()->SetDynamicShadow(false);
 			m_pTrail[i]->Transform()->SetLocalPos(Vec3(0.f, 0.f, 0.f));
 			//m_pTrail[i]->Transform()->SetLocalScale(Vec3(25.f, 0.1f, 2.5f));
-			m_pTrail[i]->Transform()->SetLocalScale(Vec3(10.f, 0.5f, 1.0f));
+			m_pTrail[i]->Transform()->SetLocalScale(Vec3(15.f, 0.5f, 5.0f));
 			m_pTargetObject->AddChild(m_pTrail[i]);
 			//CSceneMgr::GetInst()->GetCurScene()->AddGameObject(L"Default", m_pTrail[i], false);
 		}
@@ -93,29 +93,31 @@ void CSwordScript::update()
 				Vec4 qut = qRot;
 				Vec3 prev_pos = pos;
 
-				m_fCurTime += DT * 50;
+				if (m_pTargetObject->Animator3D()->GetCliTime(3) > 0.35f && m_pTargetObject->Animator3D()->GetCliTime(3) < 0.95) {
+					m_fCurTime += DT * 50;
 
-				if (m_iCount == 30) m_iCount = 0;
+					if (m_iCount == 30) m_iCount = 0;
 
-				if (m_fCurTime > m_fEmitTime) {
-					//EmitPoint(m_pObj->Transform()->GetWorldPos());
-					Vec3 prev_pos = pos;
-					Vec3 prev_rot = rot;
-					Vec4 prev_qut = qut;
+					if (m_fCurTime > m_fEmitTime) {
+						//EmitPoint(m_pObj->Transform()->GetWorldPos());
+						Vec3 prev_pos = pos;
+						Vec3 prev_rot = rot;
+						Vec4 prev_qut = qut;
 
-					m_pTrail[m_iCount]->SetActive(true);
-					m_pTrail[m_iCount]->Transform()->SetLocalPos(prev_pos + Vec3(-1.f, 12.5f, 0.f));
-					//m_pTrail[m_iCount]->Transform()->SetLocalRot(rot);
-					m_pTrail[m_iCount]->Transform()->SetQuaternion(prev_qut);
-					m_fLifeTime[m_iCount] += DT * 1.5;
+						m_pTrail[m_iCount]->SetActive(true);
+						m_pTrail[m_iCount]->Transform()->SetLocalPos(prev_pos + Vec3(-1.f, 12.5f, 0.f));
+						//m_pTrail[m_iCount]->Transform()->SetLocalRot(rot);
+						m_pTrail[m_iCount]->Transform()->SetQuaternion(prev_qut);
+						m_fLifeTime[m_iCount] += DT * 1.5;
 
-					if (m_fLifeTime[m_iCount] >= 10.f)
-					{
-						m_fLifeTime[m_iCount] = 0.f;
+						if (m_fLifeTime[m_iCount] >= 10.f)
+						{
+							m_fLifeTime[m_iCount] = 0.f;
+						}
+
+						m_fCurTime = 0.f;
+						m_iCount += 1;
 					}
-
-					m_fCurTime = 0.f;
-					m_iCount += 1;
 				}
 			}
 		}
