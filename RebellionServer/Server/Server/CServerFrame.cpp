@@ -450,13 +450,8 @@ void CServerFrame::ProcessPacket(int id, char* buf)
 		cs_packet_dungeon* packet = reinterpret_cast<cs_packet_dungeon*>(buf);
 		unordered_set<int> dun_vl;
 		unordered_set<int> old_viewList = _objects[id].GetViewList();
-		//unordered_set<int> temp_vl = _objects[id].GetViewList();
 		_enterRoom.insert(id);
 		
-		/*for (int i = 0; i < _enterRoom.size(); ++i) {
-			if (id == i) break;
-		}*/
-
 		if (_enterRoom.size() != _acceptNumber) {
 			for (auto& users : _enterRoom)
 				_sender->Send_WaitRoom_Packet(_objects[users].GetSocket(),_enterRoom.size());
